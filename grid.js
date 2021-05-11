@@ -25,7 +25,14 @@ for (let i = 0; i < rows; i++) {
             let cell = document.createElement("div");
             cell.innerText = `${String.fromCharCode(65+j)} ${i+1}`;
             cell.setAttribute("class","cell");
+            cell.setAttribute("rid",i);
+            cell.setAttribute("cid",j);
+//            cell.addEventListener("click",cellFxn);
             row.appendChild(cell);
     }
     grid.appendChild(row);
+}
+
+function cellFxn(e){
+    let 
 }
