@@ -9,6 +9,44 @@ body{
 .menu-container{
     height: 4rem;
     background-color: lightpink;
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.menu-container *{
+    border: 1px solid;
+    height: 60%;
+}
+
+.font-size{
+    width: 5%;
+}
+
+.font-family{
+    width: 21%;
+}
+
+.bui-container{
+    width: 21%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bui-container>*{
+    width: 30%;
+    height: 80%;
+    text-align: center;
+}
+
+.align-container{
+    width: 14%;
+}
+
+.color-container{
+    width: 14%;
 }
 
 .formula-container{
@@ -70,7 +108,8 @@ body{
 
 .cell{
     border: 1px solid;
-    min-width: 4rem;
+    /* min-width: 4rem; */
+    width: 4rem;
     text-align: center;
     height: 2rem;
 }
