@@ -21,8 +21,40 @@ body{
     height: 
     calc(100vh - ( 4rem + 2rem + 2rem));
     background-color: limegreen;
+    overflow: auto;
 }
 
+.box{
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid;
+    text-align: center;
+}
+
+.left_box{
+    background-color: gray;
+}
+
+.top_row{
+    height: 2rem;
+    /* background-color: green; */
+    display: flex;
+}
+
+.grid{
+    /* height: 2rem; */
+    background-color: lightblue;
+}
+
+.cell{
+    border: 1px solid;
+    min-width: 4rem;
+    text-align: center;
+}
+
+.row{
+    display: flex;
+}
 .sheets-container{
     background-color: lightblue;
     height: 2rem;
@@ -64,4 +96,6 @@ body{
     background-color: white;
 }
 
+.box{
 
+}
