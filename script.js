@@ -3,6 +3,8 @@ let sheetList = document.querySelector(".sheet-list");
 let firstSheet = document.querySelector(".sheet");
 firstSheet.addEventListener("click",makeMeActive);
 
+
+// Adding a new Sheet
 btnContainer.addEventListener("click",function(){
     let AllSheets = document.querySelectorAll(".sheet");
     let lastSheet = AllSheets[AllSheets.length-1];
@@ -20,6 +22,7 @@ btnContainer.addEventListener("click",function(){
     Newsheet.addEventListener("click",makeMeActive);
 })
 
+// to put EventListener on each sheet
 function makeMeActive(e) {
     let sheet = e.currentTarget; // to access new Sheet
     let AllSheets = document.querySelectorAll(".sheet");

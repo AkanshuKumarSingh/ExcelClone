@@ -7,17 +7,19 @@ let underLineBtn = document.querySelector(".underline");
 let italicBtn = document.querySelector(".italic");
 let fontSizeBtn = document.querySelector(".font-size")
 let fontFamilyBtn = document.querySelector(".font-family");
+let colorBtn = document.querySelector(".color");
+let bgColorBtn = document.querySelector(".bg-color");
 let leftBtn = document.querySelector(".left");
 let centerBtn = document.querySelector(".center");
 let rightBtn = document.querySelector(".right");
-let colorBtn = document.querySelector(".color");
-let bgColorBtn = document.querySelector(".bg-color");
+let alignBtns = document.querySelectorAll(".align-container>*");
 // let alignContainer = document.querySelectorAll(".>*align-container")
 // console.log(alignContainer);
 
 let rows = 100;
 let cols = 26;
 
+// to make row index for grid
 for (let i = 0; i < rows; i++) {
     let colBox = document.createElement("div");
     colBox.innerText = i + 1;
@@ -25,6 +27,7 @@ for (let i = 0; i < rows; i++) {
     leftCol.appendChild(colBox);
 }
 
+// to make col index for grid
 for (let i = 0; i < cols; i++) {
     let cell = document.createElement("div");
     cell.innerText = String.fromCharCode(65 + i);
@@ -32,6 +35,7 @@ for (let i = 0; i < cols; i++) {
     topRow.appendChild(cell);
 }
 
+// to make grid with cell(rid,cid,cell class)
 for (let i = 0; i < rows; i++) {
     let row = document.createElement("div");
     row.setAttribute("class", "row");
@@ -47,6 +51,7 @@ for (let i = 0; i < rows; i++) {
     grid.appendChild(row);
 }
 
+// making 2D database for each cell containing all the properties
 let sheetsDB = [];
 for (let i = 0; i < rows; i++) {
     let row = [];
@@ -58,14 +63,15 @@ for (let i = 0; i < rows; i++) {
             hAlign: "center",
             fontFamily: "sans-serif",
             fontSize: "16",
-            color: "black",
-            bColor: "none"
+            color: "#000000",
+            bColor: "#000000"
         };
         row.push(cell);
     }
     sheetsDB.push(row);
 }
 
+// to write address on addressInput using cell position
 let allCells = document.querySelectorAll(".grid .cell");
 for (let i = 0; i < allCells.length; i++) {
     allCells[i].addEventListener("click", function () {
@@ -87,11 +93,50 @@ for (let i = 0; i < allCells.length; i++) {
         } else {
             underLineBtn.classList.add("active-btn");
         }
+
+        if(cellObject.italic == 'normal'){
+            italicBtn.classList.remove("active-btn");
+        }else{
+            italicBtn.classList.add("active-btn");
+        }
+
+        fontSizeBtn.value = cellObject.fontSize;
+
+        fontFamilyBtn.value = cellObject.fontFamily;
         
+        if(cellObject.hAlign == 'left'){
+            alignBtns[0].classList.add("active-btn");
+        }else{
+            alignBtns[0].classList.remove("active-btn");
+        }
+
+        if(cellObject.hAlign == 'center'){
+            alignBtns[1].classList.add("active-btn");
+        }else{
+            alignBtns[1].classList.remove("active-btn");
+        }
+
+        if(cellObject.hAlign == 'right'){
+            alignBtns[2].classList.add("active-btn");
+        }else{
+            alignBtns[2].classList.remove("active-btn");
+        }
+
+        colorBtn.value = cellObject.color;
+        bgColorBtn.value = cellObject.bColor;
+        //     bold: "normal",
+        //     italic: "normal",
+        //     underline: "none",
+        //     hAlign: "center",
+        //     fontFamily: "sans-serif",
+        //     fontSize: "16",
+        //     color: "black",
+        //     bColor: "none"
 
     })
 }
 
+// to make text in cell bold
 boldBtn.addEventListener("click", function () {
     let uiCellElement = findUICellElement();
     let cid = uiCellElement.getAttribute("cid");
@@ -108,13 +153,13 @@ boldBtn.addEventListener("click", function () {
     }
 })
 
+// to make text in cell underline
 underLineBtn.addEventListener("click", function () {
     let uiCellElement = findUICellElement();
     //  object.style.textDecoration = "none|underline
     let cid = uiCellElement.getAttribute("cid");
     let rid = uiCellElement.getAttribute("rid");
     let cellObject = sheetsDB[rid][cid];
-    console.log(1);
     if (cellObject.underline == 'none') {
         uiCellElement.style.textDecoration = "underline";
         underLineBtn.classList.add("active-btn");
@@ -128,46 +173,99 @@ underLineBtn.addEventListener("click", function () {
     }
 })
 
+// to make text in cell uderline
 italicBtn.addEventListener("click", function () {
     let uiCellElement = findUICellElement();
-    uiCellElement.style.fontStyle = "italic";
+    let rid = uiCellElement.getAttribute("rid");
+    let cid = uiCellElement.getAttribute("cid");
+    let cellObject = sheetsDB[rid][cid];
+
+    if(cellObject.italic == 'normal'){
+        uiCellElement.style.fontStyle = "italic";
+        cellObject.italic = "italic";
+        italicBtn.classList.add("active-btn");
+    }else{
+        uiCellElement.style.fontStyle = "normal";
+        cellObject.italic = "normal";
+        italicBtn.classList.remove("active-btn")
+    }
+
 })
+
 
 fontSizeBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
-    console.log(fontSizeBtn.value);
-    uiCellElement.style.fontSize = `${fontSizeBtn.value}rem`;
+    let rid = uiCellElement.getAttribute("rid");
+    let cid = uiCellElement.getAttribute("cid");
+    let cellObject = sheetsDB[rid][cid];
+    uiCellElement.style.fontSize = `${fontSizeBtn.value}px`;
+    cellObject.fontSize = fontSizeBtn.value;
 })
 
 fontFamilyBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
+    let rid = uiCellElement.getAttribute("rid");
+    let cid = uiCellElement.getAttribute("cid");
+    let cellObject = sheetsDB[rid][cid];
     uiCellElement.style.fontFamily = fontFamilyBtn.value;
+    cellObject.fontFamily = fontFamilyBtn.value;
 })
 
-leftBtn.addEventListener("click", function () {
-    let uiCellElement = findUICellElement();
-    uiCellElement.style.textAlign = "left";
-})
+// leftBtn.addEventListener("click", function () {
+//     let uiCellElement = findUICellElement();
+//     uiCellElement.style.textAlign = "left";
+// })
 
-centerBtn.addEventListener("click", function () {
-    let uiCellElement = findUICellElement();
-    uiCellElement.style.textAlign = "center";
-})
+// centerBtn.addEventListener("click", function () {
+//     let uiCellElement = findUICellElement();
+//     uiCellElement.style.textAlign = "center";
+// })
 
-rightBtn.addEventListener("click", function () {
-    let uiCellElement = findUICellElement();
-    uiCellElement.style.textAlign = "right";
-})
+// rightBtn.addEventListener("click", function () {
+//     let uiCellElement = findUICellElement();
+//     uiCellElement.style.textAlign = "right";
+// })
 
+// to align the senetence : all 3 btns
+for (let i = 0; i < alignBtns.length; i++) {
+    alignBtns[i].addEventListener("click",function () {
+        let alignment = alignBtns[i].getAttribute("class");
+        let uiCellElement = findUICellElement();
+        let rid = uiCellElement.getAttribute("rid");
+        let cid = uiCellElement.getAttribute("cid");
+        let cell = sheetsDB[rid][cid];
+        if(cell.hAlign == alignment){
+            cell.hAlign = 'center';
+            uiCellElement.style.textAlign = 'center';
+            alignBtns[i].classList.remove("active-btn");
+        }else{
+            cell.hAlign = alignment;
+            uiCellElement.style.textAlign = alignment;
+            alignBtns[0].classList.remove("active-btn");
+            alignBtns[1].classList.remove("active-btn");
+            alignBtns[2].classList.remove("active-btn");
+            alignBtns[i].classList.add("active-btn");
+        }
+        
+    })
+}
+
+// to change color of text
 colorBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
-    console.log(colorBtn.value);
+    let rid = uiCellElement.getAttribute("rid");
+    let cid = uiCellElement.getAttribute("cid");
+    let cell = sheetsDB[rid][cid];
+    cell.color = `${colorBtn.value}`;
     uiCellElement.style.color = `${colorBtn.value}`;
 })
 
 bgColorBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
-    console.log("d" + colorBtn.value);
+    let rid = uiCellElement.getAttribute("rid");
+    let cid = uiCellElement.getAttribute("cid");
+    let cell = sheetsDB[rid][cid];
+    cell.bColor = `${bgColorBtn.value}`;
     uiCellElement.style.backgroundColor = `${bgColorBtn.value}`;
 })
 

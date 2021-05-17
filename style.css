@@ -21,11 +21,15 @@ body{
 }
 
 .font-size{
-    width: 5%;   
+    width: 15%;
+    background: white;
+    font-family: cursive;   
 }
 
 .font-family{
-    width: 21%;
+    width: 20%;
+    background: white;
+    font-family: cursive;
 }
 
 .bui-container{
