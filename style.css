@@ -166,3 +166,7 @@ body{
     background-color: white;
 }
 
+/* see it */
+.nos-container>*{
+    border:none;
+}

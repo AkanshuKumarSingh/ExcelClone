@@ -13,6 +13,7 @@ let leftBtn = document.querySelector(".left");
 let centerBtn = document.querySelector(".center");
 let rightBtn = document.querySelector(".right");
 let alignBtns = document.querySelectorAll(".align-container>*");
+let formulaBar = document.querySelector(".formula-input");
 // let alignContainer = document.querySelectorAll(".>*align-container")
 // console.log(alignContainer);
 
@@ -64,7 +65,9 @@ for (let i = 0; i < rows; i++) {
             fontFamily: "sans-serif",
             fontSize: "16",
             color: "#000000",
-            bColor: "#000000"
+            bColor: "#000000",
+            value: '0',
+            formula: '( A1 + B1 )'
         };
         row.push(cell);
     }
@@ -269,20 +272,5 @@ bgColorBtn.addEventListener("change", function () {
     uiCellElement.style.backgroundColor = `${bgColorBtn.value}`;
 })
 
-function findUICellElement() {
-    let address = addressInput.value;
-    let riciObj = getRIDCIDfromAddress(address);
-    let rid = riciObj.rid;
-    let cid = riciObj.cid;
-    // console.log(rid + " " + cid);
-    let uiCellElement = document.querySelector(`.cell[rid="${rid}"][cid="${cid}"]`);
-    return uiCellElement;
-}
-
-function getRIDCIDfromAddress(address) {
-    let cid = Number(address.charCodeAt(0)) - 65;
-    let rid = Number(address.slice(1)) - 1;
-    return { "rid": rid, "cid": cid };
-}
 
 allCells[0].click();
