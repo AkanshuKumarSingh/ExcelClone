@@ -167,6 +167,14 @@ body{
 }
 
 /* see it */
+.nos-container{
+    display:flex;
+    gap: 0.2rem;
+}
 .nos-container>*{
     border:none;
+}
+
+.open{
+    width: 60%;
 }

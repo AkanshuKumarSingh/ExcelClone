@@ -1,6 +1,7 @@
 let btnContainer = document.querySelector(".add-sheet_btn-container");
 let sheetList = document.querySelector(".sheet-list");
 let firstSheet = document.querySelector(".sheet");
+//to put EventListener on first sheet as it is made in the begining so we have to add it explicitly
 firstSheet.addEventListener("click",makeMeActive);
 
 

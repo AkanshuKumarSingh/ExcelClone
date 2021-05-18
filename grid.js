@@ -42,7 +42,7 @@ for (let i = 0; i < rows; i++) {
     row.setAttribute("class", "row");
     for (let j = 0; j < cols; j++) {
         let cell = document.createElement("div");
-        //            cell.innerText = `${String.fromCharCode(65+j)} ${i+1}`;
+        //cell.innerText = `${String.fromCharCode(65+j)} ${i+1}`;
         cell.setAttribute("class", "cell");
         cell.setAttribute("rid", i);
         cell.setAttribute("cid", j);
@@ -52,7 +52,7 @@ for (let i = 0; i < rows; i++) {
     grid.appendChild(row);
 }
 
-// making 2D database for each cell containing all the properties
+// making 2D database for grid , each cell contains a object containing all the properties
 let sheetsDB = [];
 for (let i = 0; i < rows; i++) {
     let row = [];
@@ -66,8 +66,8 @@ for (let i = 0; i < rows; i++) {
             fontSize: "16",
             color: "#000000",
             bColor: "#000000",
-            value: '0',
-            formula: '( A1 + B1 )'
+            value: '',
+            formula: ''
         };
         row.push(cell);
     }
@@ -83,50 +83,67 @@ for (let i = 0; i < allCells.length; i++) {
         rid = Number(rid);
         cid = Number(cid);
         let address = `${String.fromCharCode(65 + cid)}${rid + 1}`;
+
+        // set address to address bar
         addressInput.value = address;
+
+        // get cell object so that we can check each property of the object and make that specific button active
         let cellObject = sheetsDB[rid][cid];
+        
+        // for bold btn
         if (cellObject.bold == 'normal') {
             boldBtn.classList.remove("active-btn")
         } else {
             boldBtn.classList.add("active-btn");
         }
 
+        // for underline btn
         if (cellObject.underline == 'none') {
             underLineBtn.classList.remove("active-btn")
         } else {
             underLineBtn.classList.add("active-btn");
         }
 
+        //for italic btn
         if(cellObject.italic == 'normal'){
             italicBtn.classList.remove("active-btn");
         }else{
             italicBtn.classList.add("active-btn");
         }
 
+        //for fontSize
         fontSizeBtn.value = cellObject.fontSize;
 
+        //for fontFaily
         fontFamilyBtn.value = cellObject.fontFamily;
         
+        //for leftbtn
         if(cellObject.hAlign == 'left'){
             alignBtns[0].classList.add("active-btn");
         }else{
             alignBtns[0].classList.remove("active-btn");
         }
 
+        //for centerBtn
         if(cellObject.hAlign == 'center'){
             alignBtns[1].classList.add("active-btn");
         }else{
             alignBtns[1].classList.remove("active-btn");
         }
 
+        //for rightBtn
         if(cellObject.hAlign == 'right'){
             alignBtns[2].classList.add("active-btn");
         }else{
             alignBtns[2].classList.remove("active-btn");
         }
 
+        //for color btn
         colorBtn.value = cellObject.color;
+
+        //for background btn
         bgColorBtn.value = cellObject.bColor;
+
         //     bold: "normal",
         //     italic: "normal",
         //     underline: "none",
@@ -141,15 +158,22 @@ for (let i = 0; i < allCells.length; i++) {
 
 // to make text in cell bold
 boldBtn.addEventListener("click", function () {
+    // fxn defined in formula.js give the cell clicked on
     let uiCellElement = findUICellElement();
+
     let cid = uiCellElement.getAttribute("cid");
     let rid = uiCellElement.getAttribute("rid");
+    
+    //getting object for sheetDB
     let cellObject = sheetsDB[rid][cid];
+
+    //if cell is normal make bold 
     if (cellObject.bold == 'normal') {
         uiCellElement.style.fontWeight = "bold";
         boldBtn.classList.add("active-btn");
         cellObject.bold = "bold";
     } else {
+        // if cell is bold make normal
         boldBtn.classList.remove("active-btn");
         uiCellElement.style.fontWeight = "normal";
         cellObject.bold = "normal";
@@ -159,20 +183,22 @@ boldBtn.addEventListener("click", function () {
 // to make text in cell underline
 underLineBtn.addEventListener("click", function () {
     let uiCellElement = findUICellElement();
-    //  object.style.textDecoration = "none|underline
+    
+    //  object.style.textDecoration = "none|underline"
     let cid = uiCellElement.getAttribute("cid");
     let rid = uiCellElement.getAttribute("rid");
+    
+    //getting object from sheetDB
     let cellObject = sheetsDB[rid][cid];
+
     if (cellObject.underline == 'none') {
         uiCellElement.style.textDecoration = "underline";
         underLineBtn.classList.add("active-btn");
         cellObject.underline = "underline";
-        console.log("done");
     } else {
         underLineBtn.classList.remove("active-btn");
         uiCellElement.style.textDecoration = "normal";
         cellObject.underline = "none";
-        console.log("not");
     }
 })
 
@@ -190,12 +216,12 @@ italicBtn.addEventListener("click", function () {
     }else{
         uiCellElement.style.fontStyle = "normal";
         cellObject.italic = "normal";
-        italicBtn.classList.remove("active-btn")
+        italicBtn.classList.remove("active-btn");
     }
 
 })
 
-
+//for changing fontSize
 fontSizeBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
     let rid = uiCellElement.getAttribute("rid");
@@ -205,6 +231,7 @@ fontSizeBtn.addEventListener("change", function () {
     cellObject.fontSize = fontSizeBtn.value;
 })
 
+//for chaging fontFamily
 fontFamilyBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
     let rid = uiCellElement.getAttribute("rid");
@@ -263,6 +290,7 @@ colorBtn.addEventListener("change", function () {
     uiCellElement.style.color = `${colorBtn.value}`;
 })
 
+// to change color of background
 bgColorBtn.addEventListener("change", function () {
     let uiCellElement = findUICellElement();
     let rid = uiCellElement.getAttribute("rid");
@@ -272,5 +300,5 @@ bgColorBtn.addEventListener("change", function () {
     uiCellElement.style.backgroundColor = `${bgColorBtn.value}`;
 })
 
-
+// to click first cell in begining as we want A1 in address bar
 allCells[0].click();
