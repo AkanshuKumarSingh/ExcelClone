@@ -29,6 +29,7 @@ open.addEventListener("change", function () {
     // read as text 
     fr.readAsText(fileObj);
     fr.onload = function () {
+        //used downloadsheet to keep flag used in makeSheet
         isDownloadedSheet = true;
         uploadedJSON = JSON.parse(fr.result);
         makeSheet();

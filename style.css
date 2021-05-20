@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
 body{
@@ -8,11 +9,12 @@ body{
 
 .menu-container{
     height: 4rem;
-    background-color: lightpink;
+    /* background-color: pink; */
     align-items: center;
     display: flex;
     gap: 0.5rem;
     padding-left: 0.5rem;
+    justify-content: space-around;
 }
 
 .menu-container *{
@@ -33,29 +35,55 @@ body{
 }
 
 .bui-container{
+    padding-bottom: 0.2rem;
+    padding-top: 0.2rem;
     width: 21%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background: white;
+    border: white;
 }
 
 .bui-container>*{
-    width: 30%;
-    height: 80%;
+    width: 33.3%;
+    height: 98%;
     text-align: center;
+    border: white;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
 }
 
 .align-container{
     width: 14%;
+    padding-bottom: 0.2rem;
+    padding-top: 0.2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    border: white;
 }
 
-.color-container{
-    width: 14%;
+.align-container>*{
+    width: 33.3%;
+    height: 98%;
+    text-align: center;
+    border: white;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
 }
+.color-container{
+    width: 10%;
+    height: 60%;
+    border: transparent;
+    padding-left: 10px;
+}
+
 
 .formula-container{
-    height : 2rem;
-    background-color: lightcoral;
+    height : 2.2rem;
+    background-color: #1289A7;
     display: flex;
     align-items: center;
     justify-content: space-around
@@ -74,10 +102,10 @@ body{
 }
 
 .grid-container{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 
-    calc(100vh - ( 4rem + 2rem + 2rem));
-    background-color: lightgreen;
+    calc(100vh - ( 4rem + 2rem + 2.2rem));
+    background-color: #0652DD;
     overflow: auto;
     position: relative;
 }
@@ -87,10 +115,12 @@ body{
     width: 2rem;
     border: 1px solid;
     text-align: center;
+    color: white;
+    border: 1px solid black;
 }
 
 .left_box{
-    background-color: gray;
+    background-color: #023899;
 }
 
 .top_row{
@@ -104,16 +134,16 @@ body{
 
 .grid{
     /* height: 2rem; */
-    background-color: lightblue;
+    background-color: white;
     left: 2rem;
     top: 2rem;
     position: absolute;
 }
 
 .cell{
-    border: 1px solid;
+    border: 0.5px solid grey;
     /* min-width: 4rem; */
-    width: 4rem;
+    width: 5rem;
     text-align: center;
     height: 2rem;
 }
@@ -122,7 +152,7 @@ body{
     display: flex;
 }
 .sheets-container{
-    background-color: lightblue;
+    background-color: #3d7ef5;
     height: 2rem;
     display: flex;
 }
@@ -177,4 +207,35 @@ body{
 
 .open{
     width: 60%;
+    margin-top: 5px;
+}
+
+.top_row>*{
+    border: 1px solid black;
+    color: white;
+}
+
+.image{
+    color: white;
+    width: 5%;
+}
+
+button{
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;    
+}
+
+input[type=color]{
+	width: 20px;
+	height: 20px;
+	border: none;
+	border-radius: 20px;
+	background: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: solid 1px #000; /*change color of the swatch border here*/
+	border-radius: 40px;
 }

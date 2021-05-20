@@ -170,6 +170,13 @@ for (let i = 0; i < allCells.length; i++) {
         // get cell object so that we can check each property of the object and make that specific button active
         let cellObject = sheetsDB[rid][cid];
         
+        //simply set formula bar for each cell if cell contains formula set it if not remove it.
+        if(!cellObject.formula){
+            formulaBar.value = "";
+        }else{
+            formulaBar.value = cellObject.formula;
+        }
+
         // for bold btn
         if (cellObject.bold == 'normal') {
             boldBtn.classList.remove("active-btn")
