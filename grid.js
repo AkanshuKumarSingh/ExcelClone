@@ -122,6 +122,15 @@ function setUI() {
             document.querySelector(`.grid .cell[rid='${i}'][cid='${j}']`);
             let value = sheetsDB[i][j].value;
             elem.innerText = value;
+            elem.style.fontSize = sheetsDB[i][j].fontSize;
+            elem.style.fontWeight = sheetsDB[i][j].bold;
+            elem.style.textDecoration = sheetsDB[i][j].underline;
+            elem.style.fontStyle = sheetsDB[i][j].italic;
+            elem.style.textAlign = sheetsDB[i][j].hAlign
+            elem.style.fontFamily = sheetsDB[i][j].fontFamily;
+            elem.style.color = sheetsDB[i][j].color;
+            elem.style.backgroundColor = sheetsDB[i][j].bColor;
+
         }
     }
 }
@@ -140,13 +149,22 @@ function createSheet() {
                 fontFamily: "sans-serif",
                 fontSize: "16",
                 color: "#000000",
-                bColor: "#000000",
+                bColor: "#FFFFFF",
                 value: '',
                 formula: '',
                 children : []
             };
             let elem = document.querySelector(`.grid .cell[rid='${i}'][cid='${j}']`);
             elem.innerText = "";
+            elem.style.fontSize = "16px";
+            elem.style.fontWeight = "normal"
+            elem.style.textDecoration = "normal";
+            elem.style.fontStyle = "normal";
+            elem.style.textAlign = "center";
+            elem.style.fontFamily = "sans-serif";
+            elem.style.color = "#000000";
+            elem.style.backgroundColor = "#FFFFFF";
+
             row.push(cell);
         }
         NewDB.push(row);
