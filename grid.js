@@ -14,6 +14,13 @@ let centerBtn = document.querySelector(".center");
 let rightBtn = document.querySelector(".right");
 let alignBtns = document.querySelectorAll(".align-container>*");
 let formulaBar = document.querySelector(".formula-input");
+let btnContainer = document.querySelector(".add-sheet_btn-container");
+let sheetList = document.querySelector(".sheet-list");
+let firstSheet = document.querySelector(".sheet");
+let sheetsArray = [];
+let sheetsDB;
+isDownloadedSheet = false;
+uploadedJSON = null;
 // let alignContainer = document.querySelectorAll(".>*align-container")
 // console.log(alignContainer);
 
@@ -52,26 +59,99 @@ for (let i = 0; i < rows; i++) {
     grid.appendChild(row);
 }
 
-// making 2D database for grid , each cell contains a object containing all the properties
-let sheetsDB = [];
-for (let i = 0; i < rows; i++) {
-    let row = [];
-    for (let j = 0; j < cols; j++) {
-        let cell = {
-            bold: "normal",
-            italic: "normal",
-            underline: "none",
-            hAlign: "center",
-            fontFamily: "sans-serif",
-            fontSize: "16",
-            color: "#000000",
-            bColor: "#000000",
-            value: '',
-            formula: ''
-        };
-        row.push(cell);
+//to put EventListener on first sheet as it is made in the begining so we have to add it explicitly
+firstSheet.addEventListener("click",makeMeActive);
+firstSheet.click();
+
+// Adding a new Sheet
+btnContainer.addEventListener("click",makeSheet);
+function makeSheet(){
+    let AllSheets = document.querySelectorAll(".sheet");
+    let lastSheet = AllSheets[AllSheets.length-1];
+    let Lastidx = lastSheet.getAttribute("idx");
+    Lastidx = Number(Lastidx);
+    let Newsheet = document.createElement("div");
+    Newsheet.setAttribute("class","sheet");
+    Newsheet.setAttribute("idx",`${Lastidx + 1}`);
+    Newsheet.innerText = `Sheet ${Lastidx + 2}`;
+    sheetList.append(Newsheet);
+    for (let i = 0; i < AllSheets.length; i++) {
+        AllSheets[i].classList.remove("active");
     }
-    sheetsDB.push(row);
+    Newsheet.classList.add("active");
+    createSheet();
+    sheetsDB = sheetsArray[Lastidx+1];
+    Newsheet.addEventListener("click",makeMeActive);
+    
+    // if sheet is uploaded then simply remove the sheetDatabase added and add sheet downloaded in sheetArray
+    // make sheetDB point to that database
+    if(isDownloadedSheet){
+        sheetsArray.splice(sheetsArray.length-1,1);
+        sheetsArray.push(uploadedJSON);
+        sheetsDB = sheetsArray[Lastidx+1];
+        setUI();
+    }
+}
+
+// to put EventListener on each sheet
+function makeMeActive(e) {
+    let sheet = e.currentTarget; // to access new Sheet e contains sheetObject clicked
+    let AllSheets = document.querySelectorAll(".sheet");
+    for (let i = 0; i < AllSheets.length; i++) {
+        AllSheets[i].classList.remove("active");
+    }
+    sheet.classList.add("active");
+    let idx = sheet.getAttribute("idx");
+
+    // if this is first sheet then we have not made its databse then we have to explicitly make its sheet
+    // database
+    if(!sheetsArray[idx]){
+        createSheet();
+    }
+
+    //assign sheetsDB to currently clicked sheet
+    sheetsDB = sheetsArray[idx];
+    setUI();
+}
+
+function setUI() {
+    // console.log(sheetsDB);
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            let elem = 
+            document.querySelector(`.grid .cell[rid='${i}'][cid='${j}']`);
+            let value = sheetsDB[i][j].value;
+            elem.innerText = value;
+        }
+    }
+}
+
+// making 2D database for grid , each cell contains a object containing all the properties
+function createSheet() {
+    let NewDB = [];
+    for (let i = 0; i < rows; i++) {
+        let row = [];
+        for (let j = 0; j < cols; j++) {
+            let cell = {
+                bold: "normal",
+                italic: "normal",
+                underline: "none",
+                hAlign: "center",
+                fontFamily: "sans-serif",
+                fontSize: "16",
+                color: "#000000",
+                bColor: "#000000",
+                value: '',
+                formula: '',
+                children : []
+            };
+            let elem = document.querySelector(`.grid .cell[rid='${i}'][cid='${j}']`);
+            elem.innerText = "";
+            row.push(cell);
+        }
+        NewDB.push(row);
+    }
+    sheetsArray.push(NewDB);
 }
 
 // to write address on addressInput using cell position

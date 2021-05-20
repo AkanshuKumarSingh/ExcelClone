@@ -29,13 +29,10 @@ open.addEventListener("change", function () {
     // read as text 
     fr.readAsText(fileObj);
     fr.onload = function () {
-        console.log(fr.result);
+        isDownloadedSheet = true;
+        uploadedJSON = JSON.parse(fr.result);
+        makeSheet();
+        isDownloadedSheet = false;
+
     }
-    fr.addEventListener("load", function () {
-        console.log(fr.result);
-
-    })
-
-    console.log("After");
-    // ui init f
 })
