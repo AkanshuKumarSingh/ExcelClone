@@ -99,7 +99,8 @@ function evaluateFormula(formula) {
     let evaluatedFormula = formulaTokens.join(" ");
 
     // eval is inbulid function to return the value
-    return eval(evaluatedFormula);
+    let ans = evaluateFormulaAns(evaluatedFormula);
+    return ans;
 }
 
 // set value and formula in cell

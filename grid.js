@@ -302,7 +302,7 @@ underLineBtn.addEventListener("click", function () {
         cellObject.underline = "underline";
     } else {
         underLineBtn.classList.remove("active-btn");
-        uiCellElement.style.textDecoration = "normal";
+        uiCellElement.style.textDecoration = "none";
         cellObject.underline = "none";
     }
 })
