@@ -2,7 +2,8 @@
 function evaluateFormulaAns(ipString) {
     let oStack = [];
     let vStack = [];
-
+    // a5f8c01b445675341a1b534b4c92a86691794aad (HEAD)
+    // 5c04627d13128c679c3a8be7bcff014bece7e849
     for (let i = 0; i < ipString.length; i++) {
         let char = ipString[i];
         if(char == " "){
