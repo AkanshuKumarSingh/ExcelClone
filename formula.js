@@ -65,6 +65,11 @@ formulaBar.addEventListener("keydown",function (e) {
         let {rid,cid} = getRIDCIDfromAddress(address);
         let cellObject = sheetsDB[rid][cid];
 
+        if(detectCycleTillNow(cellObject,currentFormula)){
+            alert("Cycle detected can't set formula");
+            return;
+        }
+
         // if formula has changed then remove previous formula and its parent children arrray remove current address
         if(currentFormula != cellObject.formula){
             removeFormula(cellObject,address);
@@ -99,7 +104,8 @@ function evaluateFormula(formula) {
     let evaluatedFormula = formulaTokens.join(" ");
 
     // eval is inbulid function to return the value
-    return eval(evaluatedFormula);
+    let ans = evaluateFormulaAns(evaluatedFormula);
+    return ans;
 }
 
 // set value and formula in cell
