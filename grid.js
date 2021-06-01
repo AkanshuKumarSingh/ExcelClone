@@ -15,6 +15,7 @@ let rightBtn = document.querySelector(".right");
 let alignBtns = document.querySelectorAll(".align-container>*");
 let formulaBar = document.querySelector(".formula-input");
 let btnContainer = document.querySelector(".add-sheet_btn-container");
+let newBtn = document.querySelector(".new");
 let sheetList = document.querySelector(".sheet-list");
 let firstSheet = document.querySelector(".sheet");
 let sheetsArray = [];
@@ -65,6 +66,8 @@ firstSheet.click();
 
 // Adding a new Sheet
 btnContainer.addEventListener("click",makeSheet);
+newBtn.addEventListener("click",makeSheet);
+
 function makeSheet(){
     let AllSheets = document.querySelectorAll(".sheet");
     let lastSheet = AllSheets[AllSheets.length-1];
