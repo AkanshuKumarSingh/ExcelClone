@@ -56,11 +56,39 @@ function removeFormula(cellObject,myName) {
     cellObject.formula = "";
 }
 
+function updatedFormula(formula) {
+    let resultEquation = "";
+    let formulaTokens = formula;
+    for (let i = 0; i < formulaTokens.length; i++) {
+        let ascii = formulaTokens.charCodeAt(i);
+        if(ascii >= 65 && ascii <= 90){
+            let no = "";
+            let j = i+1;
+            while(formulaTokens.charCodeAt(j) >= 48 && formulaTokens.charCodeAt(j) <= 57){
+                no += (formulaTokens[j]);
+                j++;
+            }
+
+            let resAddress = formulaTokens[i] + "" + no;
+            i = j-1;
+            resultEquation += (resAddress + " ");
+
+        }else if(ascii != 32){
+            resultEquation += (formulaTokens[i] + " ");
+        }
+
+    }
+    return resultEquation;
+        
+}
+
 // to take input of formula
 formulaBar.addEventListener("keydown",function (e) {
     if (e.key == "Enter" && formulaBar.value) {
         // user input formula
-        let currentFormula = formulaBar.value;
+        let currentFormula = updatedFormula(formulaBar.value);
+        console.log(currentFormula);
+        // let currentFormula = formulaBar.value;
         let address = addressInput.value;
         let {rid,cid} = getRIDCIDfromAddress(address);
         let cellObject = sheetsDB[rid][cid];
@@ -91,6 +119,7 @@ formulaBar.addEventListener("keydown",function (e) {
 function evaluateFormula(formula) {
     //splites formula into tokens so that we can change A1 , B1 and etc to its value
     let formulaTokens = formula.split(" ");
+    console.log(formulaTokens);
     for (let i = 0; i < formulaTokens.length; i++) {
         let ascii = formulaTokens[i].charCodeAt(0);
         if(ascii >= 65 && ascii <= 90){
@@ -102,7 +131,7 @@ function evaluateFormula(formula) {
 
     // when value is replaced in formula with A1,B1 . then simply join them 
     let evaluatedFormula = formulaTokens.join(" ");
-
+    console.log(evaluatedFormula);
     // eval is inbulid function to return the value
     let ans = evaluateFormulaAns(evaluatedFormula);
     return ans;
