@@ -199,16 +199,44 @@ body{
 /* see it */
 .nos-container{
     display:flex;
-    gap: 0.2rem;
+    gap: 0.3rem;
 }
 .nos-container>*{
     border:none;
 }
 
 .open{
-    width: 60%;
-    margin-top: 5px;
+    width: 25%;
+    height: 73%;
+    margin-top: 3px;
+    margin-left: 2px;
+    font-size: medium;
 }
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input::before {
+    content: 'Open  a file';
+    display: inline-block;
+    background: linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .custom-file-input:hover::before {
+    border-color: black;
+  }
+  .custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  }
 
 .top_row>*{
     border: 1px solid black;
